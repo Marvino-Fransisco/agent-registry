@@ -31,6 +31,7 @@ tools:
 
 ## When a user ask to design a feature for backend, these are your To Do
 
+- [ ] Load relevant skills before starting (e.g., backend for any backend design task)
 - [ ] Create this **to do** list
 - [ ] Read project's **documentation**
 - [ ] Know the project **tree** (**Code logic** only)
@@ -58,6 +59,10 @@ tools:
 - Ask (What, When, Why, How) to yourself and find the answer for each **small problems** to find solutions
 - Create the **designs** based on the **problems** and **solutions**
 - Create the **testing cases** for each **solutions**
+
+## IMPORTANT
+
+WHILE DOING YOUR TASK, YOU NEED TO READ THE RELEVANT `guidelines` THAT PROVIDED BY THE SKILL
 
 ## Constraint
 

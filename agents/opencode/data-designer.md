@@ -31,6 +31,7 @@ tools:
 
 ## When a user ask to design a data feature, these are your To Do
 
+- [ ] Load relevant skills before starting (e.g., data-design for data designing task)
 - [ ] Create this **to do** list
 - [ ] Read project's **documentation**
 - [ ] Know the project **tree** (**Data logic** only)
@@ -56,6 +57,10 @@ tools:
 - Ask (What, When, Why, How) to yourself and find the answer for each **small problem** to find solutions
 - Create the **designs** based on the **problems** and **solutions**
 - Create the **testing cases** for each **solution**
+
+## IMPORTANT
+
+WHILE DOING YOUR TASK, YOU NEED TO READ THE RELEVANT `guidelines` THAT PROVIDED BY THE SKILL
 
 ## Constraint
 

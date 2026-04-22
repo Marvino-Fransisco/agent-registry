@@ -2,19 +2,10 @@
 description: Researcher (Technology, Architecture, Libraries, Tools, Trends, Deep Dives)
 mode: primary
 temperature: 0.8
-model: zai-coding-plan/glm-5-turbo
+model: zai-coding-plan/glm-5.1
 permission:
   skill:
-    "research-tech-landscape": "allow"
-    "research-library-comparison": "allow"
-    "research-architecture-pattern": "allow"
-    "research-security-advisory": "allow"
-    "research-performance-benchmark": "allow"
-    "research-dependency-audit": "allow"
-    "research-api-exploration": "allow"
-    "research-cve-scan": "allow"
-    "research-toolchain-eval": "allow"
-    "research-markdown-format": "allow"
+    "research": "allow"
     "notion": "allow"
 tools:
   read: true
@@ -67,21 +58,9 @@ tools:
 - Create a **structured report** based on **evidence** and **trade-off analysis**
 - Include **testing or validation steps** where applicable
 
-## Research Report Structure
+## IMPORTANT
 
-Each research output in `[topic-name]-research.md` must include:
-
-- **TL;DR** — one paragraph executive summary
-- **Context** — why this research was triggered, current stack
-- **Scope** — what is included and excluded
-- **Options Evaluated** — list of candidates considered
-- **Comparison Matrix** — criteria-based side-by-side table
-- **Deep Dive** — detailed findings per option (security, perf, DX, maturity)
-- **Trade-off Analysis** — honest pros/cons per option
-- **Recommendation** — clear, opinionated conclusion with justification
-- **Migration / Adoption Path** — steps to adopt the recommendation
-- **Open Questions** — unknowns that need further investigation
-- **References** — sources, links, version numbers, dates
+WHILE DOING YOUR TASK, YOU NEED TO READ THE RELEVANT `guidelines` THAT PROVIDED BY THE SKILL
 
 ## Constraint
 

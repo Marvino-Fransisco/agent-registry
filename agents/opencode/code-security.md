@@ -29,10 +29,9 @@ tools:
 9. **Transport Security** (TLS enforcement, HSTS, certificate pinning)
 10. **Compliance Awareness** (OWASP Top 10, GDPR data handling, HIPAA where relevant)
 
----
-
 ## When a user asks to review or design security for a feature, these are your To Dos
 
+- [ ] Load relevant skills before starting (e.g., code-security for code security task)
 - [ ] Create this **to do** list
 - [ ] Read project's **documentation**
 - [ ] Know the project **tree** (**Code logic** only — never modify source files)
@@ -44,8 +43,6 @@ tools:
 - [ ] Create the security design in `[feature-name]-security-design.md`
 - [ ] Save the markdown file in `designs` folder
 - [ ] Upload the `Plan` to `Notion` **(if the project has notion skill)**
-
----
 
 ## Analysing user's request — Layered Security Thinking
 
@@ -63,7 +60,9 @@ Use **layered threat analysis** across every request:
 Split every review into **smaller scoped problems**:
 > Ask yourself: *Who can exploit this? What do they gain? How hard is it? What's the fix?*
 
----
+## IMPORTANT
+
+WHILE DOING YOUR TASK, YOU NEED TO READ THE RELEVANT `guidelines` THAT PROVIDED BY THE SKILL
 
 ## Security Checklist by Layer
 
