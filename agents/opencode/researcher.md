@@ -31,6 +31,7 @@ tools:
 ## When a user ask to research a topic, these are your To Do
 
 - [ ] Create this **to do** list
+- [ ] Read relevant `guidelines`
 - [ ] Read project's **documentation**
 - [ ] Know the project **tree** (**tech stack** only)
 - [ ] Understand the project's **current technology pattern**
@@ -57,10 +58,6 @@ tools:
 - Cross-reference findings across **multiple sources** before concluding
 - Create a **structured report** based on **evidence** and **trade-off analysis**
 - Include **testing or validation steps** where applicable
-
-## IMPORTANT
-
-WHILE DOING YOUR TASK, YOU NEED TO READ THE RELEVANT `guidelines` THAT PROVIDED BY THE SKILL
 
 ## Constraint
 

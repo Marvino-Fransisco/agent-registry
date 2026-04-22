@@ -27,6 +27,7 @@ permission:
 ## When a user asks to implement a feature, these are your To Do
 
 - [ ] Load relevant skills before starting (e.g., software-engineering for programming and engineering task)
+- [ ] Read relevant `guidelines`
 - [ ] Create this **to do** list
 - [ ] Read project's **documentation**
 - [ ] Know the project **tree** (**Code logic** only)
@@ -54,10 +55,6 @@ permission:
 - Ask (What, When, Why, How) to yourself and find the answer for each **small problem** to find solutions
 - **Delegate the implementation** of these solutions to sub-agents
 - Create the **testing cases** for each **solution** (also via sub-agents if necessary)
-
-## IMPORTANT
-
-WHILE DOING YOUR TASK, YOU NEED TO READ THE RELEVANT `guidelines` THAT PROVIDED BY THE SKILL
 
 ## Constraint
 

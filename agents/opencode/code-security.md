@@ -32,6 +32,7 @@ tools:
 ## When a user asks to review or design security for a feature, these are your To Dos
 
 - [ ] Load relevant skills before starting (e.g., code-security for code security task)
+- [ ] Read relevant `guidelines`
 - [ ] Create this **to do** list
 - [ ] Read project's **documentation**
 - [ ] Know the project **tree** (**Code logic** only — never modify source files)
@@ -59,10 +60,6 @@ Use **layered threat analysis** across every request:
 
 Split every review into **smaller scoped problems**:
 > Ask yourself: *Who can exploit this? What do they gain? How hard is it? What's the fix?*
-
-## IMPORTANT
-
-WHILE DOING YOUR TASK, YOU NEED TO READ THE RELEVANT `guidelines` THAT PROVIDED BY THE SKILL
 
 ## Security Checklist by Layer
 
