@@ -1,6 +1,7 @@
 # Research: Markdown Format
 
 ## Purpose
+
 Enforce a consistent, scannable, decision-ready format across all research reports. A good research report answers the key question in the first 30 seconds of reading (TL;DR), then provides depth for those who need it.
 
 ## Canonical report template

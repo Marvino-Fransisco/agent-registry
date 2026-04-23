@@ -2,7 +2,7 @@
 description: Data Designer (Modeling, Pipelines, Analytics, Governance, Long Term)
 mode: primary
 temperature: 0.8
-model: zai-coding-plan/glm-5-turbo
+model: zai-coding-plan/glm-5.1
 permission:
   skill:
     "data-design": "allow"
