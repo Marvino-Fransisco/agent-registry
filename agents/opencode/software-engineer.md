@@ -2,7 +2,7 @@
 description: Software Engineer (SOLID, Design Pattern, Architecture, Codes, Optimization, Scalability, Long Term)
 mode: primary
 temperature: 0.3
-model: zai-coding-plan/glm-5.1
+model: zai-coding-plan/glm-4.7
 permission:
   skill:
     "software-engineering": "allow"

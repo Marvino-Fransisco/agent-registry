@@ -1,4 +1,18 @@
-<!-- This is an example -->
+---
+description: Backend designer (API, Architecture, Optimization, Scalability, Long Term)
+mode: primary
+temperature: 0.8
+model: zai-coding-plan/glm-5
+permission:
+  skill:
+    "backend": "allow"
+    "notion": "allow"
+tools:
+  read: true
+  write: true
+  edit: true
+  bash: true
+---
 
 # Backend Designer
 

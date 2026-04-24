@@ -2,7 +2,7 @@
 description: Backend designer (API, Architecture, Optimization, Scalability, Long Term)
 mode: primary
 temperature: 0.8
-model: zai-coding-plan/glm-5.1
+model: zai-coding-plan/glm-5
 permission:
   skill:
     "backend": "allow"
