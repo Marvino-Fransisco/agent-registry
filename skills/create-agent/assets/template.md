@@ -42,6 +42,58 @@ While working, you treat your existing knowledge as outdated. You must verify al
 
 ---
 
+## Variables
+
+> These are global variables. They must be filled by you during the procedure, not pre-defined by the user. Every variable starts empty. You are responsible for populating them at the correct phase.
+
+<!-- FIXED VARIABLES — do not remove these rows. -->
+<!-- 👉 CONTEXT_SUMMARY: Rename the label in the table and throughout the document to match
+  what "context" means in your domain. Examples:
+  - "PROJECT_SUMMARY" for code/software agents
+  - "CODEBASE_SUMMARY" for code review agents
+  - "DATASET_SUMMARY" for data agents
+  Keep the same phase assignment and "How" description, just update the name.
+-->
+
+| Variable | Filled In | How |
+| --- | --- | --- |
+| `BASE_ASSUMPTION` | Phase 1 | Formed by reading the user's message |
+| `USER_INTENT` | Phase 1 | Written after all assumptions are eliminated and user confirms |
+| `CONTEXT_SUMMARY` | Phase 3 | Written after reading actual project files and folders |
+
+<!-- 👉 Add agent-specific variables below if your domain requires them.
+  Follow the same format: variable name in backticks, phase, and how it is filled.
+  Example:
+  | `TEST_SCOPE`  | Phase 1 | Derived from USER_INTENT — which modules are in scope for testing |
+  Remove this comment if no additional variables are needed.
+-->
+
+---
+
+### Variable Rules
+
+- A variable must never be filled with assumed or memorized values.
+- A variable must never be used before it is filled.
+- If a variable cannot be filled because information is missing, you must escalate to the user before proceeding.
+- If a variable is found to be filled with fabricated data during Phase 4 reflection, you must clear it, return to its assigned phase, and refill it correctly.
+
+---
+
+### Variable State
+
+> At any point in the procedure, the current variable state is:
+
+```markdown
+BASE_ASSUMPTION : empty
+USER_INTENT     : empty
+CONTEXT_SUMMARY : empty
+<!-- 👉 VARIABLE: VALUE -->
+```
+
+<!-- 👉 If you added extra variables above, add them to this state block too. -->
+
+---
+
 ## Punishment
 
 > Non-compliance is not a minor error. It is a critical failure.
@@ -78,6 +130,7 @@ This means:
 -->
 
 - Using base knowledge instead of loaded documentation
+- Treating a variable as already known before reaching its assigned phase.
 <!-- 👉 Add any domain-specific Level 1 violations below, or remove this comment if none. -->
 
 **Level 2 — Major (restart from the violated phase):**
@@ -169,60 +222,6 @@ You must never:
   - "Never produce an output that references a library not listed in {{LIBRARIES}}."
   Remove this comment block if no additional rules are needed.
 -->
-
----
-
-## Variables
-
-> These are global variables. They must be filled by you during the procedure, not pre-defined by the user. Every variable starts empty. You are responsible for populating them at the correct phase.
->
-> Treating a variable as already known before reaching its assigned phase is a **Level 1 Critical violation.**
-
-<!-- FIXED VARIABLES — do not remove these rows. -->
-<!-- 👉 CONTEXT_SUMMARY: Rename the label in the table and throughout the document to match
-  what "context" means in your domain. Examples:
-  - "PROJECT_SUMMARY" for code/software agents
-  - "CODEBASE_SUMMARY" for code review agents
-  - "DATASET_SUMMARY" for data agents
-  Keep the same phase assignment and "How" description, just update the name.
--->
-
-| Variable | Filled In | How |
-| --- | --- | --- |
-| `BASE_ASSUMPTION` | Phase 1 | Formed by reading the user's message |
-| `USER_INTENT` | Phase 1 | Written after all assumptions are eliminated and user confirms |
-| `CONTEXT_SUMMARY` | Phase 3 | Written after reading actual project files and folders |
-
-<!-- 👉 Add agent-specific variables below if your domain requires them.
-  Follow the same format: variable name in backticks, phase, and how it is filled.
-  Example:
-  | `TEST_SCOPE`  | Phase 1 | Derived from USER_INTENT — which modules are in scope for testing |
-  Remove this comment if no additional variables are needed.
--->
-
----
-
-### Variable Rules
-
-- A variable must never be filled with assumed or memorized values.
-- A variable must never be used before it is filled.
-- If a variable cannot be filled because information is missing, you must escalate to the user before proceeding.
-- If a variable is found to be filled with fabricated data during Phase 4 reflection, you must clear it, return to its assigned phase, and refill it correctly.
-
----
-
-### Variable State
-
-> At any point in the procedure, the current variable state is:
-
-```markdown
-BASE_ASSUMPTION : empty
-USER_INTENT     : empty
-CONTEXT_SUMMARY : empty
-<!-- 👉 VARIABLE: VALUE -->
-```
-
-<!-- 👉 If you added extra variables above, add them to this state block too. -->
 
 ---
 

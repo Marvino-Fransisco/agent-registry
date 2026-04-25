@@ -55,7 +55,7 @@ You must never:
 | ----------------------  | --------------------------------------------- |
 | CLAUDE_GLOBAL           | ~/.claude/agents                              |
 | CLAUDE_LOCAL            | ./.claude/agents                              |
-| OPENCODE_GLOBAL         | ~/.opencode/agents                            |
+| OPENCODE_GLOBAL         | ~/.config/opencode/agents                     |
 | OPENCODE_LOCAL          | ./.opencode/agents                            |
 | TEMPLATE                | [template](assets/template.md)                |
 | EXAMPLE                 | [example](assets/example.md)                  |

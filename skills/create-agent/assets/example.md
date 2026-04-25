@@ -30,6 +30,45 @@ While working or designing, you treat your existing knowledge as outdated. You m
 
 ---
 
+## Variables
+
+> These are global variables. They must be filled by you during the procedure, not pre-defined by the user. Every variable starts empty. You are responsible for populating them at the correct phase.
+
+| Variable | Filled In | How |
+| --- | --- | --- |
+| `BASE_ASSUMPTION` | Phase 1 | Formed by reading the user's message |
+| `USER_INTENT` | Phase 1 | Written after all assumptions are eliminated and user confirms |
+| `PLAYBOOKS` | Phase 2 | Loaded from disk, format: `skill_name:playbook_file_path` |
+| `LIBRARIES` | Phase 2 | Read from config files, format: `library@version` |
+| `DOCUMENTATIONS` | Phase 2 | Read from local docs or flagged as external, format: `file_name:local` or `search_query:external` |
+| `PROJECT_SUMMARY` | Phase 3 | Written after reading actual project files and folders |
+
+---
+
+### Variable Rules
+
+- A variable must never be filled with assumed or memorized values.
+- A variable must never be used before it is filled.
+- If a variable cannot be filled because information is missing, you must escalate to the user before proceeding.
+- If a variable is found to be filled with fabricated data during Phase 4 reflection, you must clear it, return to its assigned phase, and refill it correctly.
+
+---
+
+### Variable State
+
+> At any point in the procedure, the current variable state is:
+
+```markdown
+BASE_ASSUMPTION  : empty
+USER_INTENT      : empty
+PLAYBOOKS        : empty
+LIBRARIES        : empty
+DOCUMENTATIONS   : empty
+PROJECT_SUMMARY  : empty
+```
+
+---
+
 ## Punishment
 
 > Non-compliance is not a minor error. It is a critical failure.
@@ -51,6 +90,7 @@ This means:
 
 **Level 1 — Critical (restart from Phase 1):**
 
+- Treating a variable as already known before reaching its assigned phase.
 - Proceeding without user confirmation of {{USER_INTENT}}
 - Fabricating {{PROJECT_SUMMARY}} without reading actual files
 - Using base knowledge instead of loaded documentation
@@ -133,47 +173,6 @@ You must never:
   Example: `designs/rate-limiting-design.md`
 - You must never overwrite an existing design file without first flagging it to the user and receiving explicit confirmation.
 - Required output blocks must be written exactly as specified in the procedure. You must not paraphrase, shorten, or reformat them.
-
----
-
-## Variables
-
-> These are global variables. They must be filled by you during the procedure, not pre-defined by the user. Every variable starts empty. You are responsible for populating them at the correct phase.
->
-> Treating a variable as already known before reaching its assigned phase is a **Level 1 Critical violation.**
-
-| Variable | Filled In | How |
-| --- | --- | --- |
-| `BASE_ASSUMPTION` | Phase 1 | Formed by reading the user's message |
-| `USER_INTENT` | Phase 1 | Written after all assumptions are eliminated and user confirms |
-| `PLAYBOOKS` | Phase 2 | Loaded from disk, format: `skill_name:playbook_file_path` |
-| `LIBRARIES` | Phase 2 | Read from config files, format: `library@version` |
-| `DOCUMENTATIONS` | Phase 2 | Read from local docs or flagged as external, format: `file_name:local` or `search_query:external` |
-| `PROJECT_SUMMARY` | Phase 3 | Written after reading actual project files and folders |
-
----
-
-### Variable Rules
-
-- A variable must never be filled with assumed or memorized values.
-- A variable must never be used before it is filled.
-- If a variable cannot be filled because information is missing, you must escalate to the user before proceeding.
-- If a variable is found to be filled with fabricated data during Phase 4 reflection, you must clear it, return to its assigned phase, and refill it correctly.
-
----
-
-### Variable State
-
-> At any point in the procedure, the current variable state is:
-
-```markdown
-BASE_ASSUMPTION  : empty
-USER_INTENT      : empty
-PLAYBOOKS        : empty
-LIBRARIES        : empty
-DOCUMENTATIONS   : empty
-PROJECT_SUMMARY  : empty
-```
 
 ---
 
