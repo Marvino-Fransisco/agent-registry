@@ -1,7 +1,9 @@
 ---
 name: create-agent
 description: >
-  Use this skill to create new agent
+  Create and configure new custom AI agents with specific instructions, 
+  behaviors, tools, and capabilities. Use this for requests like "make an agent",
+  "create a custom agent", "build a new AI assistant", or "set up a new agent".
 ---
 
 # Create Agent Skill
@@ -35,7 +37,7 @@ You must never:
 > Every output must be traceable, consistent, and stored in the correct location.
 
 - File names must use kebab-case and clearly reflect the scope of the design.
-  Format: `agent-name.md`
+  Format: `{agent-name}.md`
   Example: `data-designer.md`
 - File name must follow the agent's name.
 - You must never overwrite an existing design file without first flagging it to the user and receiving explicit confirmation.
@@ -49,13 +51,17 @@ You must never:
 
 > These are global variables.
 
-| Variable           | Value                                      |
-| ------------------ | ------------------------------------------ |
-| CLAUDE_GLOBAL      | ~/.claude/agents                           |
-| CLAUDE_LOCAL       | ./.claude/agents                           |
-| OPENCODE_GLOBAL    | ~/.opencode/agents                         |
-| OPENCODE_LOCAL     | ./.opencode/agents                         |
-| REGISTRY           | ~/agent-registry/agents/{{USER_PLATFORM}}  |
+| Variable                | Value                                         |
+| ----------------------  | --------------------------------------------- |
+| CLAUDE_GLOBAL           | ~/.claude/agents                              |
+| CLAUDE_LOCAL            | ./.claude/agents                              |
+| OPENCODE_GLOBAL         | ~/.opencode/agents                            |
+| OPENCODE_LOCAL          | ./.opencode/agents                            |
+| TEMPLATE                | [template](assets/template.md)                |
+| EXAMPLE                 | [example](assets/example.md)                  |
+| CLAUDE_YAML_TEMPLATE    | [claude_template](assets/claude.yaml.md)      |
+| OPENCODE_YAML_TEMPLATE  | [opencode_template](assets/opencode.yaml.md)  |
+| REGISTRY                | ~/agent-registry/agents/{{USER_PLATFORM}}     |
 
 > These are global variables, but you must fill it by yourself
 
@@ -74,8 +80,8 @@ You must never:
 
 > Working on Phase 1 - Knowledge fill 
 
-- [ ] Read [template](assets/template.md) To understad what you need to fill
-- [ ] Read [example](assets/backend-designer.md) To understand the expected file output
+- [ ] Read {{TEMPLATE}} To understad what you need to fill
+- [ ] Read {{EXAMPLE}} To understand the expected file output
 
 **Required output before proceeding:**
 
@@ -96,7 +102,7 @@ You must never:
 
 **Constraint:**
 
-1. Ask most 5 questions at a time
+1. Ask most 5 questions at a time per section
 
 - [ ] Ask to user every detail about the new agent based on the template until no ambiguity, assumptions, and missing detail
 - [ ] Ask to user where this agent will be created (global, local, registry) and fill the {{AGENT_SCOPE}}
@@ -155,8 +161,9 @@ Answer every question below explicitly. Do not skip any. Do not answer with a ge
 
 - [ ] Determine where to create the agent based on {{AGENT_SCOPE}} and {{USER_PLATFORM}}
 - [ ] Make sure the folder is exists
-- [ ] Copy [template](assets/template.md) to the designated folder
-- [ ] Update the file content
+- [ ] Copy {{TEMPLATE}} to the designated folder
+- [ ] Based on {{USER_PLATFORM}} copy the yaml template content
+- [ ] Rename the file and update the file content
 
 **Required output before proceeding:**
 

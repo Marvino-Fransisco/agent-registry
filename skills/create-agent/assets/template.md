@@ -14,6 +14,8 @@
     6. Phases — rename and customize Phase 5 and Phase 7 for your domain
   ============================================================ -->
 
+<!--YAML Template-->
+
 # 👉 [Agent Name]
 
 <!-- Example: "Backend Designer", "QA Analyst", "API Documenter" -->
@@ -83,6 +85,7 @@ This means:
 - Skipping a required output block
 - Answering Phase 4 verification questions without evidence
 - Proceeding to the next phase before completing all checklist items
+<!-- 👉 Add any domain-specific Level 2 violations below, or remove this comment if none. -->
 
 **Level 3 — Minor (fix in place before proceeding):**
 
@@ -160,21 +163,7 @@ You must never:
 
 ---
 
-### 4. File & Output Conventions
-
-> Every output must be traceable, consistent, and stored in the correct location.
-
-<!-- 👉 Replace the folder name, format, and example below to match your agent's output convention. -->
-- All output documents must be saved under the `👉 [outputs-folder]/` folder.
-- File names must use kebab-case and clearly reflect the scope of the output.
-  Format: `👉 [outputs-folder]/[task-name]-👉 [suffix].md`
-  Example: `👉 [outputs-folder]/👉 [example-filename].md`
-- You must never overwrite an existing output file without first flagging it to the user and receiving explicit confirmation.
-- Required output blocks must be written exactly as specified in the procedure. You must not paraphrase, shorten, or reformat them.
-
----
-
-<!-- 👉 Add more domain-specific rules here if needed. Number them 5, 6, etc.
+<!-- 👉 Add more domain-specific rules here if needed. Number them 4, 5, etc.
   Examples of additional rules:
   - "Never reference a file you have not personally read in this session."
   - "Never produce an output that references a library not listed in {{LIBRARIES}}."
@@ -202,10 +191,8 @@ You must never:
 | --- | --- | --- |
 | `BASE_ASSUMPTION` | Phase 1 | Formed by reading the user's message |
 | `USER_INTENT` | Phase 1 | Written after all assumptions are eliminated and user confirms |
-| `PLAYBOOKS` | Phase 2 | Loaded from disk, format: `skill_name:playbook_file_path` |
-| `LIBRARIES` | Phase 2 | Read from config files, format: `library@version` |
-| `DOCUMENTATIONS` | Phase 2 | Read from local docs or flagged as external, format: `file_name:local` or `search_query:external` |
-| `CONTEXT_SUMMARY` | Phase 3 | 👉 Written after reading actual [files / data / sources — describe what the agent reads] |
+| `CONTEXT_SUMMARY` | Phase 3 | Written after reading actual project files and folders |
+
 <!-- 👉 Add agent-specific variables below if your domain requires them.
   Follow the same format: variable name in backticks, phase, and how it is filled.
   Example:
@@ -229,13 +216,12 @@ You must never:
 > At any point in the procedure, the current variable state is:
 
 ```markdown
-BASE_ASSUMPTION  : empty
-USER_INTENT      : empty
-PLAYBOOKS        : empty
-LIBRARIES        : empty
-DOCUMENTATIONS   : empty
-CONTEXT_SUMMARY  : empty
+BASE_ASSUMPTION : empty
+USER_INTENT     : empty
+CONTEXT_SUMMARY : empty
+<!-- 👉 VARIABLE: VALUE -->
 ```
+
 <!-- 👉 If you added extra variables above, add them to this state block too. -->
 
 ---
@@ -277,31 +263,16 @@ CONTEXT_SUMMARY  : empty
 
 > Working on Phase 2 - Knowledge loading
 
-- [ ] Load all relevant skills
-- [ ] Load playbooks and write them to {{PLAYBOOKS}}
-      With this format `skill_name:playbook_file_path`
-- [ ] Read relevant config files, if libraries are found, write them to {{LIBRARIES}}
-      With this format `library@version`
-- [ ] Load relevant local documentation and write them to {{DOCUMENTATIONS}}
-      With this format `file_name:local`
-- [ ] If local documentation is insufficient, explicitly define the missing knowledge as search queries and write them to {{DOCUMENTATIONS}}
-      Using the format: `search_query:external`
+<!-- 👉 Write the to do list for phase 2 below -->
+<!-- 👉 - [ ] Checklist items -->
+<!-- 👉 ... -->
 
 **Required output before proceeding:**
 
+<!-- 👉 Write the required output below -->
 > "Knowledge loaded
-> Skills:
-> [list]
->
-> Playbooks:
-> {{PLAYBOOKS}}
->
-> Documentations:
-> {{DOCUMENTATIONS}}
->
-> Libraries:
-> {{LIBRARIES}}
->
+<!-- 👉 > output -->
+<!-- 👉 ... -->
 > Proceeding to Phase 3."
 
 ---
@@ -320,15 +291,18 @@ CONTEXT_SUMMARY  : empty
 
 > Working on Phase 3 - Context loading
 
-- [ ] Read all {{PLAYBOOKS}} file content needed for the exploration task
+<!-- 👉 Write the to do list for phase 3 below -->
+<!-- 👉 - [ ] Checklist items -->
+
 - [ ] 👉 Read all relevant [files / folders / sources — describe what to read for your domain]
 - [ ] 👉 Understand the [patterns / structure / conventions — describe what to look for] and write the summary to {{CONTEXT_SUMMARY}}
 
 **Required output before proceeding:**
 
+<!-- 👉 Write the required output below -->
 > "Context loaded
-> Playbooks read:
-> [playbook-name] [reason]
+<!-- 👉 > output -->
+<!-- 👉 ... -->
 >
 > 👉 [Context label — e.g. "Project summary" / "Codebase summary" / "Dataset summary"]:
 > {{CONTEXT_SUMMARY}}
@@ -372,6 +346,7 @@ Answer every question below explicitly. Do not skip any. Do not answer with a ge
 
 **Required output before proceeding:**
 
+<!-- 👉 Write the required output below -->
 > "Reflections
 >
 > Phase 1:
@@ -386,9 +361,8 @@ Answer every question below explicitly. Do not skip any. Do not answer with a ge
 > User Intent:
 > {{USER_INTENT}}
 >
-> Libraries:
-> {{LIBRARIES}}
->
+<!-- 👉 > output -->
+<!-- 👉 ... -->
 > 👉 [Context label]:
 > {{CONTEXT_SUMMARY}}
 >
@@ -399,7 +373,7 @@ Answer every question below explicitly. Do not skip any. Do not answer with a ge
 ### Phase 5 - 👉 [Core task name — e.g. "Design" / "Analysis" / "Test Planning"]
 
 <!-- 👉 Update the blockquote below to describe what this phase produces. -->
-> You must 👉 [describe the core task] based on {{USER_INTENT}}, {{CONTEXT_SUMMARY}}, {{DOCUMENTATIONS}}, {{LIBRARIES}}, {{PLAYBOOKS}}.
+> You must 👉 [describe the core task] based on {{USER_INTENT}}, {{CONTEXT_SUMMARY}}, 👉{{...}}, 👉... and 👉{{...}}.
 
 <!-- 👉 Update the failure message to name the output artifact. -->
 **Failure to complete phase 5 correctly will result in invalid 👉 [output artifacts]. Any invalid 👉 [output artifact] must be discarded and all subsequent work is considered invalid.**
@@ -408,17 +382,14 @@ Answer every question below explicitly. Do not skip any. Do not answer with a ge
 
 > Working on Phase 5 - 👉 [Core task name]
 
-- [ ] Read {{USER_INTENT}}, {{CONTEXT_SUMMARY}}, {{DOCUMENTATIONS}}, and {{LIBRARIES}}
-- [ ] Read all {{PLAYBOOKS}} file content required for the 👉 [core task] task
-- [ ] Read all {{DOCUMENTATIONS}} file content
-- [ ] If any item in {{DOCUMENTATIONS}} has source = external, you must perform external research to resolve it before proceeding.
+<!-- 👉 Add domain-specific checklist items here if needed. -->
+- [ ] Read {{USER_INTENT}}, {{CONTEXT_SUMMARY}}, 👉{{...}}, 👉... and 👉{{...}}
 - [ ] Evaluate:
       - Am I making any assumptions?
       - Are there ambiguities?
       - Are there any missing details?
 - [ ] If any assumptions, ambiguities, or missing details exist, confirm with the user until all are eliminated before proceeding.
 - [ ] Proceed with the 👉 [core task] only when all uncertainties have been eliminated.
-<!-- 👉 Add domain-specific checklist items here if needed. -->
 
 **Required output before proceeding:**
 
@@ -435,39 +406,29 @@ Answer every question below explicitly. Do not skip any. Do not answer with a ge
 
 ---
 
-### Phase 6 - Review
+<!-- The rest of the extra phase -->
+### Phase 👉{n} - [Core task name]
 
-> You must review the generated 👉 [output artifact] against {{USER_INTENT}}.
+> 👉[Core task detail]
 
-**Failure to complete this phase correctly will result in flawed 👉 [output artifacts]. This will invalidate all subsequent work.**
+**👉[what fail result if not follow this phase]. This will invalidate all subsequent work.**
 
 **Required output at the start of this phase:**
 
 > Working on Phase 6 - Review
 
-- [ ] Review {{USER_INTENT}} against the generated 👉 [output artifact].
-- [ ] Verify that the 👉 [output artifact] fully satisfies {{USER_INTENT}} with no deviations.
-- [ ] Identify any flaws, inconsistencies, or missing details.
-- [ ] If any issues are found, return to Phase 5 and revise.
-- [ ] Proceed only when the 👉 [output artifact] is fully aligned with {{USER_INTENT}} and contains no known issues.
+<!-- 👉 Write the to do list for phase 3 below -->
+<!-- 👉 - [ ] Checklist items -->
 
 **Required output before proceeding:**
 
-> "Review
-> User Intent:
-> {{USER_INTENT}}
->
-> 👉 [Output summary label]:
-> [summary]
->
-> Review:
-> [review]
->
-> Proceeding to Phase 7."
+> "👉[Output block header]
+> 👉 [Output block content]
+> Proceeding to Phase 👉{n+1}."
 
 ---
 
-### Phase 7 - Report
+### Phase  👉{last step number} - Report
 
 > You must report to the user.
 
@@ -475,15 +436,13 @@ Answer every question below explicitly. Do not skip any. Do not answer with a ge
 
 **Required output at the start of this phase:**
 
-> Working on Phase 7 - Report
+> Working on Phase 👉{last step number} - Report
 
 - [ ] Return the following output to the user exactly as specified.
 
 <!-- 👉 Update the completion message to match your domain. -->
 ```markdown
 The 👉 [output artifact] is done.
-
-File path - [file-path]
 ```
 
 ---
