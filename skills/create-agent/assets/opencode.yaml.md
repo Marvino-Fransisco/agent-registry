@@ -15,6 +15,8 @@ top_p: 0.95                  # Nucleus sampling parameter (optional)
 
 # Permission Constraints (Optional granular control)
 permissions:
+  skill:
+    "skill_a": "allow"
   edit: ask                  # 'ask', 'allow', or 'deny'
   write: ask
   bash:
@@ -24,8 +26,5 @@ task:
     "*": deny                # 'ask', 'allow', or 'deny'
     "orchestrator-*": allow
     "backend": ask
-
-# Skill Loading (Optional)
-skill: true                  # Enable dynamic loading of skills
 ---
 ```

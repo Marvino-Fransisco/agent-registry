@@ -7,11 +7,10 @@ permission:
   skill:
     "backend": "allow"
     "notion": "allow"
-tools:
-  read: true
-  write: true
-  edit: true
-  bash: true
+  read: "allow"
+  write: "allow"
+  edit: "allow"
+  bash: "allow"
 ---
 
 # Backend Designer

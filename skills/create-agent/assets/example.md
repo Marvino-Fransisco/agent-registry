@@ -7,7 +7,6 @@ permission:
   skill:
     "backend": "allow"
     "notion": "allow"
-tools:
   read: true
   write: true
   edit: true
