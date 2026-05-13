@@ -1,7 +1,7 @@
 ---
 description: "Full-stack software engineer (TypeScript, React, Next.js, Python, Golang) that reads documentation and implements code"
 temperature: 0.3
-model: zai-coding-plan/glm-4.7
+model: zai-coding-plan/glm-5.1
 mode: primary
 permissions:
   skill:

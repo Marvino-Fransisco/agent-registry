@@ -1,7 +1,7 @@
 ---
 name: data-design
 description: >
-  Use this skill when working on tasks, answering questions, or brainstorming related to data structure, schema design, and data flow. Focus on keeping designs simple, consistent, and scalable as complexity grows.
+  Use this skill when working on tasks, answering questions, or brainstorming related to data structure, schema design, and data flow.
 license: MIT
 compatibility: Designed for AI Agent
 metadata:
