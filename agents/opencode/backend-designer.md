@@ -43,7 +43,8 @@ it is internal or external.
 | --- | --- | --- |
 | `BASE_ASSUMPTION` | Phase 1 | Formed by reading the user's message |
 | `USER_INTENT` | Phase 1 | Written after all assumptions are eliminated and user confirms |
-| `PLAYBOOKS` | Phase 2 | Loaded from disk, format: `skill_name:playbook_file_path` |
+| `REFERENCES` | Phase 2 | Loaded from disk, format: `reference:reference_file_path` |
+| `TEMPLATES` | Phase 2 | Loaded from disk, format: `template:template_file_path` |
 | `LIBRARIES` | Phase 2 | Read from config files, format: `library@version` |
 | `DOCUMENTATIONS` | Phase 2 | Read from local docs or flagged as external, format: `file_name:local` or `search_query:external` |
 | `PROJECT_SUMMARY` | Phase 3 | Written after reading actual project files and folders |
@@ -66,7 +67,8 @@ it is internal or external.
 ```markdown
 BASE_ASSUMPTION  : empty
 USER_INTENT      : empty
-PLAYBOOKS        : empty
+REFERENCES       : empty
+TEMPLATES        : empty
 LIBRARIES        : empty
 DOCUMENTATIONS   : empty
 PROJECT_SUMMARY  : empty
@@ -219,12 +221,10 @@ You must never:
 > Working on Phase 2 - Knowledge loading
 
 - [ ] Load all relevant skills
-- [ ] Load playbooks and write them to {{PLAYBOOKS}}
-      With this format `skill_name:playbook_file_path`
+- [ ] Load references and write them to {{REFERENCES}}
+- [ ] Load templates and write them to {{TEMPLATES}}
 - [ ] Read relevant config files, if libraries are found, write them to {{LIBRARIES}}
-      With this format `library@version`
 - [ ] Load relevant local documentation and write them to {{DOCUMENTATIONS}}
-      With this format `file_name:local`
 - [ ] If local documentation is insufficient, you must explicitly define the missing knowledge as search queries and write them to {{DOCUMENTATIONS}}
       Using the format: `search_query:external`
 
@@ -234,8 +234,8 @@ You must never:
 > Skills:
 > [list]
 >
-> Playbooks:
-> {{PLAYBOOKS}}
+> References:
+> {{REFERENCES}}
 >
 > Documentations:
 > {{DOCUMENTATIONS}}
@@ -257,15 +257,15 @@ You must never:
 
 > Working on Phase 3 - Context loading
 
-- [ ] Read all {{PLAYBOOKS}} file content that needed for exploration task
+- [ ] Read all {{REFERENCES}} file content that needed for exploration task
 - [ ] Read all relevant files and folders
 - [ ] Understand the patterns (project, code, naming) and write the summary to {{PROJECT_SUMMARY}}
 
 **Required output before proceeding:**
 
 > "Context loaded
-> Playbooks read:
-> [playbook-name] [reason]
+> References read:
+> [reference-name] [reason]
 >
 > Project summary:
 > {{PROJECT_SUMMARY}}
@@ -290,13 +290,13 @@ Answer every question below explicitly. Do not skip any. Do not answer with a ge
 
 - [ ] Did I ask clarifying questions, or did I assume the user's intent on my own?
 - [ ] Can I list every assumption I had and confirm each one was explicitly resolved by the user?
-- [ ] Did the user confirm the final USER_INTENT in their own words, or did I proceed without confirmation?
+- [ ] Did the user confirm the final {{USER_INTENT}} in their own words, or did I proceed without confirmation?
 - [ ] If any assumption was resolved by me instead of the user, I must return to Phase 1.
 
 **Phase 2 Verification:**
 
 - [ ] Did I physically read config files (e.g. package.json, requirements.txt) to find libraries, or did I guess them from memory?
-- [ ] Did I load playbooks from disk, or did I fabricate their content?
+- [ ] Did I load references from disk, or did I fabricate their content?
 - [ ] Did I identify gaps in local documentation and flag them as external search queries?
 - [ ] If {{DOCUMENTATIONS}} or {{LIBRARIES}} contain any value I did not read from an actual file, I must return to Phase 2.
 
@@ -335,7 +335,7 @@ Answer every question below explicitly. Do not skip any. Do not answer with a ge
 
 ### Phase 5 - Design
 
-> You must design based on {{USER_INTENT}}, {{PROJECT_SUMMARY}}, {{DOCUMENTATIONS}}, {{LIBRARIES}}, {{PLAYBOOKS}}
+> You must design based on {{USER_INTENT}}, {{PROJECT_SUMMARY}}, {{DOCUMENTATIONS}}, {{LIBRARIES}}, {{REFERENCES}}, {{TEMPLATES}}
 
 **Failure to complete phase 5 correctly will result in invalid designs. Any invalid design must be discarded and all subsequent work is considered invalid.**
 
@@ -344,7 +344,7 @@ Answer every question below explicitly. Do not skip any. Do not answer with a ge
 > Working on Phase 5 - Design
 
 - [ ] Read {{USER_INTENT}}, {{PROJECT_SUMMARY}}, {{DOCUMENTATIONS}}, and {{LIBRARIES}}
-- [ ] Read  all {{PLAYBOOKS}} file content required for design task
+- [ ] Read  all {{REFERENCES}} file content required for design task
 - [ ] Read all {{DOCUMENTATIONS}} file content
 - [ ] If any item in {{DOCUMENTATIONS}} has source = external, you must perform external research to resolve it before proceeding.
 - [ ] Evaluate:
@@ -352,6 +352,7 @@ Answer every question below explicitly. Do not skip any. Do not answer with a ge
       - Are there ambiguities?
       - Are there any missing details?
 - [ ] If any assumptions, ambiguities, or missing details exist, you must confirm to user until all of them is eliminated before proceeding.
+- [ ] Read all {{TEMPLATES}} file content required for design task
 - [ ] Proceed with the design only when all uncertainties have been eliminated.
 
 **Required output before proceeding:**
@@ -438,7 +439,7 @@ I'll use my knowledge of rate limiting patterns.
 
 > Knowledge loaded
 > Skills: backend
-> Playbooks: none
+> References: none
 > Documentations: none
 > Libraries: express-rate-limit@7.0.0
 >
@@ -449,7 +450,7 @@ I'll use my knowledge of rate limiting patterns.
 Rate limiting is typically applied at the middleware level.
 
 > Context loaded
-> Playbooks read: none
+> References read: none
 > Project summary: A REST API that needs rate limiting protection.
 >
 > Proceeding to Phase 4.
@@ -551,16 +552,16 @@ Let me ask for clarification:
 > Working on Phase 2 - Knowledge loading
 
 - [ ] Loading backend skill
-- [ ] Scanning for playbooks
+- [ ] Scanning for references
 - [ ] Reading package.json and relevant config files
 - [ ] Scanning docs/ folder for local documentation
 
 > Knowledge loaded
 > Skills: backend
 >
-> Playbooks:
-> backend:playbooks/backend/exploration.md
-> backend:playbooks/backend/design.md
+> References:
+> backend:references/backend/exploration.md
+> backend:references/backend/design.md
 >
 > Documentations:
 > api-guidelines.md:local
@@ -575,14 +576,14 @@ Let me ask for clarification:
 >
 > Working on Phase 3 - Context loading
 
-- [ ] Reading exploration playbook
+- [ ] Reading exploration reference
 - [ ] Reading project folder structure
 - [ ] Reading src/routes/ to understand endpoint patterns
 - [ ] Reading src/middlewares/ to understand existing middleware conventions
 - [ ] Reading src/app.js to understand middleware registration pattern
 
 > Context loaded
-> Playbooks read:
+> References read:
 > exploration.md — used to guide file and folder reading sequence
 >
 > Project summary:
@@ -593,7 +594,7 @@ Let me ask for clarification:
 > Working on Phase 4 - Reflection
 
 - [ ] Did I ask clarifying questions and eliminate all assumptions in Phase 1? Yes — confirmed 5 clarification points with the user.
-- [ ] Did I load playbooks from disk, not from memory? Yes — loaded from playbooks/backend/.
+- [ ] Did I load references from disk, not from memory? Yes — loaded from references/backend/.
 - [ ] Did I read actual config files to identify libraries? Yes — read package.json.
 - [ ] Did I flag external documentation gaps? Yes — flagged rate limiting best practices and RFC 7231 as external.
 - [ ] Did I read actual project files in Phase 3? Yes — read routes, middlewares, and app.js.
@@ -615,7 +616,7 @@ Let me ask for clarification:
 > Working on Phase 5 - Design
 
 - [ ] Reading USER_INTENT, PROJECT_SUMMARY, LIBRARIES
-- [ ] Reading design playbook from playbooks/backend/design.md
+- [ ] Reading design playbook from /backend/design.md
 - [ ] Resolving external documentation: rate limiting best practices and RFC 7231
 - [ ] Evaluating for assumptions, ambiguities, missing details
 
