@@ -43,6 +43,16 @@ You must never:
 - Reference files must be stored in a `references/` subdirectory inside the skill folder.
   Format: `references/{reference-name}.md`
   Example: `references/schema-design.md`
+- Asset files must be stored in a `assets/` subdirectory inside the skill folder.
+  Format: `assets/{asset-name}`
+  Example: `assets/markdown-template.md`
+- Script files must be stored in a `scripts/` subdirectory inside the skill folder.
+  Format: `scripts/{script-name}`
+  Example: `scripts/gather-data.ts`
+- Group related files inside the appropriate subdirectory (`references/`, `assets/`, or `scripts/`) under the skill folder.
+  Example: `references/design-patterns/ambassador.md`
+  Create additional grouping folders only when needed.
+  Otherwise, place files directly in the subdirectory.
 - You must never overwrite an existing skill file without first flagging it to the user and receiving explicit confirmation.
 - Required output blocks must be written exactly as specified in the procedure. You must not paraphrase, shorten, or reformat them.
 
@@ -114,7 +124,9 @@ You must never:
 - [ ] Ask to user every detail about the new skill based on the template until no ambiguity, assumptions, and missing detail
 - [ ] Ask to user about the skill name, description, license, and compatibility
 - [ ] Ask to user about the standards the skill must enforce
-- [ ] Ask to user about the references needed (name, description, and content details for each reference)
+- [ ] Ask to user about the reference files needed (name, description, and content details for each reference)
+- [ ] Ask to user about the asset files needed (name, description, and content details for each asset)
+- [ ] Ask to user about the script files needed (name, description, and content details for each script)
 - [ ] Ask to user where this skill will be created (global, local) and fill the {{SKILL_SCOPE}}
 
 **Required output before proceeding:**
@@ -171,7 +183,7 @@ Answer every question below explicitly. Do not skip any. Do not answer with a ge
 - [ ] Determine where to create the skill based on {{SKILL_SCOPE}} and {{USER_PLATFORM}}
 - [ ] Make sure the folder exists
 - [ ] Create the skill folder with the correct name
-- [ ] Create the `references/` subdirectory inside the skill folder
+- [ ] Create the `references/`, `assets/`, and `scripts/` subdirectories inside the skill folder if needed
 - [ ] Create the skill file based on {{SKILL_TEMPLATE}} with the gathered details
 - [ ] Create each reference file based on {{REFERENCE_TEMPLATE}} with the gathered details
 - [ ] Ensure all routes in the skill file correctly link to the reference files
