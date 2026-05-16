@@ -1,9 +1,7 @@
 ---
 name: create-agent
 description: >
-  Create and configure new custom AI agents with specific instructions, 
-  behaviors, tools, and capabilities. Use this for requests like "make an agent",
-  "create a custom agent", "build a new AI assistant", or "set up a new agent".
+  Use this skill when you are creating new agent and editing an existing agent.
 ---
 
 # Create Agent Skill

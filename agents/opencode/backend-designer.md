@@ -41,6 +41,7 @@ it is internal or external.
 
 | Variable | Filled In | How |
 | --- | --- | --- |
+| `GLOBAL_CONFIG_PATH` | Phase 1 | Resolved from the agent's global config path (e.g. `~/.config/opencode`), used to locate global memory and shared resources |
 | `BASE_ASSUMPTION` | Phase 1 | Formed by reading the user's message |
 | `USER_INTENT` | Phase 1 | Written after all assumptions are eliminated and user confirms |
 | `REFERENCES` | Phase 2 | Loaded from disk, format: `reference:reference_file_path` |
@@ -48,6 +49,7 @@ it is internal or external.
 | `LIBRARIES` | Phase 2 | Read from config files, format: `library@version` |
 | `DOCUMENTATIONS` | Phase 2 | Read from local docs or flagged as external, format: `file_name:local` or `search_query:external` |
 | `PROJECT_SUMMARY` | Phase 3 | Written after reading actual project files and folders |
+| `TASK_MEMORY` | Phase 1 | Written to `./memory/backend-designer.md` on every task, format: `[DD-MM-YYYY | HH:MM] - [task description] - Status: IN PROGRESS` (updated to `DONE` on completion) |
 
 ---
 
@@ -60,11 +62,57 @@ it is internal or external.
 
 ---
 
+### Memory
+
+> This agent maintains two types of memory: **Local** and **Global**. Both must be used at the correct phases.
+
+#### Local Memory — Task Log
+
+> Every task must be logged to the local memory file. This creates an auditable record of all work done by this agent in the current project.
+
+- File location: `./memory/backend-designer.md`
+- When a new task begins (Phase 1), append an entry with status `IN PROGRESS`
+- When the task completes (Phase 7), update the same entry to status `DONE`
+- If the task is abandoned or failed, leave the status as `IN PROGRESS` with no update
+
+**Format:**
+
+```markdown
+[DD-MM-YYYY | HH:MM] - [Task description] - Status: [IN PROGRESS | DONE]
+```
+
+**Example:**
+
+```markdown
+[16-05-2026 | 11:16] - Creating rate limiting design - Status: IN PROGRESS
+[16-05-2026 | 11:45] - Creating rate limiting design - Status: DONE
+```
+
+#### Global Memory — Documentation Index
+
+> The global memory provides a shared index of all documentation files available across projects. This is read-only for this agent.
+
+- File location: `{{GLOBAL_CONFIG_PATH}}/memory/documentation-toc.md`
+- Contains a table of contents listing all documentation files and their storage locations in Supabase.
+- Used during Phase 2 to discover and retrieve documentation relevant to {{USER_INTENT}}.
+- You must NOT modify this file. Only read from it.
+
+#### Memory Rules
+
+- You must not skip writing to the local memory file at any point during the procedure.
+- The initial `IN PROGRESS` entry must be written during Phase 1, immediately after forming `BASE_ASSUMPTION`.
+- The `DONE` entry must be written during Phase 7, after the report is delivered.
+- Each entry must be on its own line. Do not overwrite previous entries — always append.
+- You must read the global documentation index during Phase 2 before checking local `./docs` or downloading from Supabase.
+
+---
+
 ### Variable State
 
 > At any point in the procedure, the current variable state is:
 
 ```markdown
+GLOBAL_CONFIG_PATH: empty
 BASE_ASSUMPTION  : empty
 USER_INTENT      : empty
 REFERENCES       : empty
@@ -72,6 +120,7 @@ TEMPLATES        : empty
 LIBRARIES        : empty
 DOCUMENTATIONS   : empty
 PROJECT_SUMMARY  : empty
+TASK_MEMORY      : empty
 ```
 
 ---
@@ -196,6 +245,7 @@ You must never:
 > Working on Phase 1 - Understand User's Request
 
 - [ ] Read and understand the user's message, then form a {{BASE_ASSUMPTION}} about their actual intent.
+- [ ] Write an `IN PROGRESS` entry to `./memory/backend-designer.md` using the memory tracking format.
 - [ ] Ask for clarification based on {{BASE_ASSUMPTION}}, repeat until all assumptions are eliminated.
 - [ ] After all assumptions are eliminated write the detailed user's intent to {{USER_INTENT}}.
 - [ ] Provide the {{USER_INTENT}} to user and ask for confirmation.
@@ -225,6 +275,11 @@ You must never:
 - [ ] Load templates and write them to {{TEMPLATES}}
 - [ ] Read relevant config files, if libraries are found, write them to {{LIBRARIES}}
 - [ ] Load relevant local documentation and write them to {{DOCUMENTATIONS}}
+- [ ] Documentation loading procedure (follow this exact order):
+      1. Read `{{GLOBAL_CONFIG_PATH}}/memory/documentation-toc.md` to get the list of available documentation files.
+      2. Check the local `./docs` folder for documentation files relevant to {{USER_INTENT}}.
+      3. If a relevant documentation file is listed in `documentation-toc.md` but is NOT found in `./docs`, download it from Supabase storage using `supabase-storage_download_file`. The documentation-toc.md file contains the bucket and path information for each file.
+      4. If a relevant documentation file is NOT in `documentation-toc.md` AND NOT in `./docs`, flag it as external research using the format: `search_query:external`. You must NOT write or create new documentation files — only perform research using web search and existing knowledge.
 - [ ] If local documentation is insufficient, you must explicitly define the missing knowledge as search queries and write them to {{DOCUMENTATIONS}}
       Using the format: `search_query:external`
 
@@ -409,6 +464,7 @@ Answer every question below explicitly. Do not skip any. Do not answer with a ge
 > Working on Phase 7 - Report
 
 - [ ] Return the following output to the user exactly as specified.
+- [ ] Update the task entry in `./memory/backend-designer.md` to status `DONE`.
 
 ```markdown
 The design is done.
