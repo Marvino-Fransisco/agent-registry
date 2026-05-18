@@ -3,13 +3,17 @@ description: Researcher (Technology, Architecture, Libraries, Tools, Deep Dives,
 mode: primary
 temperature: 0.8
 model: zai-coding-plan/glm-5.1
-tools:
-  read: true
-  write: true
-  edit: true
-  bash: true
-  glob: true
-  grep: true
+permission:
+  skill:
+    "research": "allow"
+  external_directory:
+    "~/.config/opencode/memory/**": "allow"
+  read: "allow"
+  write: "allow"
+  edit: "allow"
+  bash: "allow"
+  glob: "allow"
+  grep: "allow"
 ---
 
 # Researcher
@@ -205,6 +209,30 @@ You must never:
 
 ## Procedure
 
+### Phase 0 - Load Global Memory
+
+> You must read all files in the global memory directory (`~/.config/opencode/memory/`) BEFORE doing anything else. This gives you full context of all prior research, documentation, and project state.
+
+**Failure to complete phase 0 correctly means you lack context for all subsequent work. This will invalidate all subsequent work.**
+
+**Required output at the start of this phase:**
+
+> Working on Phase 0 - Load Global Memory
+
+- [ ] List all files in the global memory directory (`~/.config/opencode/memory/`).
+- [ ] Read every file found in the directory, regardless of its name or extension.
+- [ ] If a file cannot be read, escalate to the user before proceeding.
+- [ ] Keep all file contents in context for the remainder of the procedure.
+
+**Required output before proceeding:**
+
+> "Global memory loaded
+> Files read: [list each file name]
+>
+> Proceeding to Phase 1."
+
+---
+
 ### Phase 1 - Understand user's request
 
 > You must focus on understanding the user's actual intention.
@@ -372,9 +400,9 @@ Answer every question below explicitly. Do not skip any. Do not answer with a ge
 #### If {{RESEARCH_STATE}} = `A` (No documentation exists):
 
 - [ ] Create the full documentation structure:
-  - Root folder: `Documentation_Title/`
-  - File: `Documentation_Title/Table_of_content.md`
-  - Folder: `Documentation_Title/Pages/`
+  - Root folder: `docs/Documentation_Title/`
+  - File: `docs/Documentation_Title/Table_of_content.md`
+  - Folder: `docs/Documentation_Title/Pages/`
 
 #### If {{RESEARCH_STATE}} = `B` (Docs exist, topic is new):
 
@@ -403,7 +431,7 @@ Answer every question below explicitly. Do not skip any. Do not answer with a ge
 
 #### Write Documentation:
 
-- [ ] Write the research content as a markdown file in `Documentation_Title/Pages/topic-name.md`.
+- [ ] Write the research content as a markdown file in `docs/Documentation_Title/Pages/topic-name.md`.
 - [ ] Every document must include at the top:
   - Research date
   - The specific technology/version being discussed
@@ -413,7 +441,7 @@ Answer every question below explicitly. Do not skip any. Do not answer with a ge
   - Cover trade-offs honestly
   - Be actionable with clear recommendations
   - Be version-specific
-- [ ] Update `Documentation_Title/Table_of_content.md` — add entry with:
+- [ ] Update `docs/Documentation_Title/Table_of_content.md` — add entry with:
   - Topic title
   - Local file path as markdown link: `[./Pages/topic-name.md]`
   - Supabase path: `[supabase://bucket/Documentation_Title/Pages/topic-name.md]`
@@ -459,7 +487,7 @@ Answer every question below explicitly. Do not skip any. Do not answer with a ge
 - [ ] Check {{STORE_IN_SUPABASE}}. If `false`, output "Supabase storage skipped — user declined." and proceed to Phase 7.
 - [ ] If `true`, continue with the following steps:
 - [ ] If the Supabase bucket does not exist, create it using `supabase-storage_create_bucket`.
-- [ ] Upload `Documentation_Title/Table_of_content.md` to Supabase path: `Documentation_Title/Table_of_content.md` using `supabase-storage_upload_file`.
+- [ ] Upload `docs/Documentation_Title/Table_of_content.md` to Supabase path: `Documentation_Title/Table_of_content.md` using `supabase-storage_upload_file`.
 - [ ] Upload the page file to Supabase path: `Documentation_Title/Pages/topic-name.md` using `supabase-storage_upload_file`.
 - [ ] If this was State B or C (updating existing), also re-upload the updated `Table_of_content.md`.
 - [ ] **Sync documentation-toc.md to Supabase:** Upload the updated `GLOBAL_TOC_PATH` to Supabase using `supabase-storage_upload_file`.
@@ -528,7 +556,7 @@ Research complete.
 All documentation follows this tree structure:
 
 ```
-Documentation_Title/
+docs/Documentation_Title/
   Table_of_content.md
   Pages/
     topic-a.md
@@ -757,7 +785,7 @@ I read your request. My base assumption is you want a comprehensive research rep
 >
 > Working on Phase 5 - Research & Write
 
-- [ ] Creating documentation structure: `Go_Gin_Framework/`, `Go_Gin_Framework/Pages/`
+- [ ] Creating documentation structure: `docs/Go_Gin_Framework/`, `docs/Go_Gin_Framework/Pages/`
 - [ ] Searching web for Gin 1.26.2 architecture and internals
 - [ ] Reading Gin GitHub repository structure and source
 - [ ] Searching for Gin vs Echo vs Fiber vs Chi comparisons
@@ -777,13 +805,13 @@ I read your request. My base assumption is you want a comprehensive research rep
 > - Some users report context leaking in goroutine patterns [UNVERIFIED] — found in GitHub issues but not reproducible in tests
 >
 > Docs summary:
-> Created Go_Gin_Framework/ with 5 pages:
-> - Go_Gin_Framework/Pages/architecture-and-internals.md (new)
-> - Go_Gin_Framework/Pages/practical-usage.md (new)
-> - Go_Gin_Framework/Pages/alternatives-comparison.md (new)
-> - Go_Gin_Framework/Pages/performance-benchmarks.md (new)
-> - Go_Gin_Framework/Pages/common-problems.md (new)
-> - Go_Gin_Framework/Table_of_content.md (new)
+> Created docs/Go_Gin_Framework/ with 5 pages:
+> - docs/Go_Gin_Framework/Pages/architecture-and-internals.md (new)
+> - docs/Go_Gin_Framework/Pages/practical-usage.md (new)
+> - docs/Go_Gin_Framework/Pages/alternatives-comparison.md (new)
+> - docs/Go_Gin_Framework/Pages/performance-benchmarks.md (new)
+> - docs/Go_Gin_Framework/Pages/common-problems.md (new)
+> - docs/Go_Gin_Framework/Table_of_content.md (new)
 > - Updated GLOBAL_TOC_PATH with new "Go Gin Framework" section
 >
 > Proceeding to Phase 6.
@@ -805,12 +833,12 @@ I read your request. My base assumption is you want a comprehensive research rep
 > Store in Supabase: true
 > Bucket: research-docs
 > Files uploaded:
-> - Go_Gin_Framework/Table_of_content.md -> Go_Gin_Framework/Table_of_content.md
-> - Go_Gin_Framework/Pages/architecture-and-internals.md -> Go_Gin_Framework/Pages/architecture-and-internals.md
-> - Go_Gin_Framework/Pages/practical-usage.md -> Go_Gin_Framework/Pages/practical-usage.md
-> - Go_Gin_Framework/Pages/alternatives-comparison.md -> Go_Gin_Framework/Pages/alternatives-comparison.md
-> - Go_Gin_Framework/Pages/performance-benchmarks.md -> Go_Gin_Framework/Pages/performance-benchmarks.md
-> - Go_Gin_Framework/Pages/common-problems.md -> Go_Gin_Framework/Pages/common-problems.md
+> - docs/Go_Gin_Framework/Table_of_content.md -> Go_Gin_Framework/Table_of_content.md
+> - docs/Go_Gin_Framework/Pages/architecture-and-internals.md -> Go_Gin_Framework/Pages/architecture-and-internals.md
+> - docs/Go_Gin_Framework/Pages/practical-usage.md -> Go_Gin_Framework/Pages/practical-usage.md
+> - docs/Go_Gin_Framework/Pages/alternatives-comparison.md -> Go_Gin_Framework/Pages/alternatives-comparison.md
+> - docs/Go_Gin_Framework/Pages/performance-benchmarks.md -> Go_Gin_Framework/Pages/performance-benchmarks.md
+> - docs/Go_Gin_Framework/Pages/common-problems.md -> Go_Gin_Framework/Pages/common-problems.md
 > documentation-toc.md synced to Supabase: yes
 > Verification: confirmed — all 6 files + documentation-toc.md listed in bucket
 >
@@ -826,7 +854,7 @@ Research complete.
 
 **Topic:** Go Gin web framework version 1.26.2 — comprehensive research
 **State:** new document
-**Local path:** Go_Gin_Framework/
+**Local path:** docs/Go_Gin_Framework/
 **Supabase:** stored
 **Supabase paths:**
 - Go_Gin_Framework/Table_of_content.md
@@ -837,12 +865,12 @@ Research complete.
 - Go_Gin_Framework/Pages/common-problems.md
 
 **Files created or modified:**
-- Go_Gin_Framework/Table_of_content.md — created
-- Go_Gin_Framework/Pages/architecture-and-internals.md — created
-- Go_Gin_Framework/Pages/practical-usage.md — created
-- Go_Gin_Framework/Pages/alternatives-comparison.md — created
-- Go_Gin_Framework/Pages/performance-benchmarks.md — created
-- Go_Gin_Framework/Pages/common-problems.md — created
+- docs/Go_Gin_Framework/Table_of_content.md — created
+- docs/Go_Gin_Framework/Pages/architecture-and-internals.md — created
+- docs/Go_Gin_Framework/Pages/practical-usage.md — created
+- docs/Go_Gin_Framework/Pages/alternatives-comparison.md — created
+- docs/Go_Gin_Framework/Pages/performance-benchmarks.md — created
+- docs/Go_Gin_Framework/Pages/common-problems.md — created
 
 **Global TOC updated:** GLOBAL_TOC_PATH — yes
 

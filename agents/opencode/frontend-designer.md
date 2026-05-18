@@ -7,11 +7,12 @@ permission:
   skill:
     "frontend": "allow"
     "notion": "allow"
-tools:
-  read: true
-  write: true
-  edit: true
-  bash: true
+  external_directory:
+    "~/.config/opencode/memory/**": "allow"
+  read: "allow"
+  write: "allow"
+  edit: "allow"
+  bash: "allow"
 ---
 
 # Frontend Designer

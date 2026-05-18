@@ -6,6 +6,8 @@ model: zai-coding-plan/glm-5.1
 permission:
   skill:
     "backend": "allow"
+  external_directory:
+    "~/.config/opencode/memory/**": "allow"
   read: "allow"
   write: "allow"
   edit: "allow"
@@ -41,7 +43,7 @@ it is internal or external.
 
 | Variable | Filled In | How |
 | --- | --- | --- |
-| `GLOBAL_CONFIG_PATH` | Phase 1 | Resolved from the agent's global config path (e.g. `~/.config/opencode`), used to locate global memory and shared resources |
+| `GLOBAL_CONFIG_PATH` | Phase 0 | Resolved from the agent's global config path (e.g. `~/.config/opencode`), used to locate global memory and shared resources |
 | `BASE_ASSUMPTION` | Phase 1 | Formed by reading the user's message |
 | `USER_INTENT` | Phase 1 | Written after all assumptions are eliminated and user confirms |
 | `REFERENCES` | Phase 2 | Loaded from disk, format: `reference:reference_file_path` |
@@ -233,6 +235,31 @@ You must never:
 ---
 
 ## Procedure
+
+### Phase 0 - Global memory initialization
+
+> You must read all global memory files before doing anything else. This gives you shared context available to all agents.
+
+**Failure to complete phase 0 correctly means you are operating without shared context. This will invalidate all subsequent work.**
+
+**Required output at the start of this phase:**
+
+> Working on Phase 0 - Global Memory Initialization
+
+- [ ] Resolve `GLOBAL_CONFIG_PATH` (e.g. `~/.config/opencode`).
+- [ ] List all files in `{{GLOBAL_CONFIG_PATH}}/memory/`.
+- [ ] Read every file in `{{GLOBAL_CONFIG_PATH}}/memory/` and retain their content for use in later phases.
+
+**Required output before proceeding:**
+
+> "Global memory initialized
+> GLOBAL_CONFIG_PATH: [resolved-path]
+> Files read:
+> - [file-name]: [brief summary of content]
+>
+> Proceeding to Phase 1."
+
+---
 
 ### Phase 1 - Understand user's request
 
@@ -559,6 +586,7 @@ File path - designs/rate-limiting-design.md
 
 These are the violations:
 
+- Phase 0: Skipped entirely. Never read global memory files before starting work.
 - Phase 1: Eliminated assumptions unilaterally without asking the user. Never confirmed which endpoints, authenticated routes only or all, per-user or per-IP, global or granular limits.
 - Phase 2: Used base knowledge instead of loading actual documentation. Assumed express-rate-limit without reading config files to check what is already installed. Loaded zero documentation.
 - Phase 3: Fabricated project summary without reading any files. Never read the actual project structure. The API might not even use Express.
@@ -574,6 +602,21 @@ These are the violations:
 
 **Your Response:**
 
+> Working on Phase 0 - Global Memory Initialization
+
+- [ ] Resolving GLOBAL_CONFIG_PATH: `~/.config/opencode`
+- [ ] Listing files in `~/.config/opencode/memory/`
+- [ ] Reading `context.md` — contains Supabase Storage Bucket: `agent-bucket`
+- [ ] Reading `documentation-toc.md` — documentation index file
+
+> Global memory initialized
+> GLOBAL_CONFIG_PATH: ~/.config/opencode
+> Files read:
+> - context.md: Supabase Storage Bucket name (agent-bucket)
+> - documentation-toc.md: Documentation table of contents
+>
+> Proceeding to Phase 1.
+>
 > Working on Phase 1 - Understand User's Request
 
 I read your request. My base assumption is that you want to limit how frequently API endpoints can be called, but I have several open assumptions I need to eliminate before proceeding.
