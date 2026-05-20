@@ -379,14 +379,16 @@ Answer every question below explicitly. Do not skip any. Do not answer with a ge
 
 > Working on Phase 5 - Write Memory
 
-- [ ] Get the current date and time by running `date +'%d-%m-%Y | %H:%M'` using the bash tool. You MUST use the output of this command as the timestamp — do NOT fabricate or guess the time.
 - [ ] Read `./memory/product-manager.md` using the read tool.
 - [ ] If the file does not exist, create it.
-- [ ] Append a new entry at the end of the file with this exact format, using the timestamp from the `date` command above:
+- [ ] Append a new entry at the end of the file with this exact format — one line per design file name:
   ```
-  [DD-MM-YYYY | HH:MM] - Splitting <design-file-names> into jobs and tasks - Status: ON PROGRESS
+  <design-file-name> - Status: ON PROGRESS
   ```
-  Example: `[20-05-2026 | 09:33] - Splitting designs/sign-in.md into jobs and tasks - Status: ON PROGRESS`
+  Example:
+  ```
+  designs/sign-in.md - Status: ON PROGRESS
+  ```
 - [ ] Verify the memory entry was written correctly by reading the file again.
 
 **Required output before proceeding:**
@@ -422,7 +424,6 @@ Answer every question below explicitly. Do not skip any. Do not answer with a ge
   - Are there missing details in the design files?
 - [ ] If any assumptions, ambiguities, or missing details exist, confirm with the user until all are eliminated before proceeding.
 - [ ] Write the complete plan to {{JOB_PLAN}}
-- [ ] Present {{JOB_PLAN}} to the user and ask for confirmation before writing files
 
 **Required output before proceeding:**
 
@@ -479,9 +480,8 @@ Answer every question below explicitly. Do not skip any. Do not answer with a ge
 
 > Working on Phase 8 - Report
 
-- [ ] Get the current date and time by running `date +'%d-%m-%Y | %H:%M'` using the bash tool. You MUST use the output of this command as the timestamp — do NOT fabricate or guess the time.
 - [ ] Read `./memory/product-manager.md`.
-- [ ] Update the memory entry for this task: replace the timestamp with the new one from the `date` command, and change `Status: ON PROGRESS` to `Status: DONE`.
+- [ ] Update the memory entry for this task: change `Status: ON PROGRESS` to `Status: DONE` for each design file name that was processed.
 - [ ] Do not delete any existing memory entries — only update the status of the current task entry.
 - [ ] Return the following output to the user exactly as specified.
 
@@ -505,18 +505,20 @@ Memory: ./memory/product-manager.md — Status: DONE
 
 This file tracks task activity — which design documents were split into jobs and tasks and their status. It does NOT track task content.
 
-One entry per line, append new entries at the end:
+One line per design file, append new entries at the end:
 
 ```
-[DD-MM-YYYY | HH:MM] - Splitting <design-file-names> into jobs and tasks - Status: [ON PROGRESS | DONE]
+<design-file-name> - Status: [ON PROGRESS | DONE]
 ```
 
 Example:
 ```
-[20-05-2026 | 09:33] - Splitting designs/sign-in.md into jobs and tasks - Status: ON PROGRESS
-[20-05-2026 | 10:15] - Splitting designs/sign-in.md into jobs and tasks - Status: DONE
-[20-05-2026 | 14:00] - Splitting designs/auth.md, designs/database.md into jobs and tasks - Status: ON PROGRESS
-[20-05-2026 | 15:30] - Splitting designs/auth.md, designs/database.md into jobs and tasks - Status: DONE
+designs/sign-in.md - Status: ON PROGRESS
+designs/sign-in.md - Status: DONE
+designs/auth.md - Status: ON PROGRESS
+designs/auth.md - Status: DONE
+designs/database.md - Status: ON PROGRESS
+designs/database.md - Status: DONE
 ```
 
 ---
@@ -695,7 +697,7 @@ I read your request. My base assumption is that you want me to read the sign-in 
 
 > Memory written
 > File: ./memory/product-manager.md
-> Entry: [20-05-2026 | 09:33] - Splitting designs/sign-in.md into jobs and tasks - Status: ON PROGRESS
+> Entry: designs/sign-in.md - Status: ON PROGRESS
 >
 > Proceeding to Phase 6.
 >
