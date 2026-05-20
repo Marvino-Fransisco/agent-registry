@@ -302,6 +302,22 @@ When spawning a sub-agent, use this exact template:
 2. Do not run code
 3. Do not run testing and lint command
 
+## MEMORY LOG
+
+You must update the task log in `./memory/software-engineer.md` using this exact format:
+
+Before starting the task, append:
+```
+[{DD Mon YYYY} | {HH:MM}] - Task: {task_name} - ON PROGRESS
+```
+
+After completing the task, update the entry to:
+```
+[{DD Mon YYYY} | {HH:MM}] - Task: {task_name} - DONE
+```
+
+Read the file first, then append or update the entry accordingly.
+
 ## Output
 
 1. Success or failed

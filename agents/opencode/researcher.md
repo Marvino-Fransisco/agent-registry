@@ -269,9 +269,10 @@ You must never:
 
 > Working on Phase 2 - Write Memory
 
+- [ ] Get the current date and time by running `date +'%d-%m-%Y | %H:%M'` using the bash tool. You MUST use the output of this command as the timestamp — do NOT fabricate or guess the time.
 - [ ] Read `./memory/researcher.md` using the read tool.
 - [ ] If the file does not exist, create it.
-- [ ] Append a new entry at the end of the file with this exact format:
+- [ ] Append a new entry at the end of the file with this exact format, using the timestamp from the `date` command above:
   ```
   [DD-MM-YYYY | HH:MM] - [One sentence context about what this agent does] - Status: ON PROGRESS
   ```
@@ -520,8 +521,9 @@ Answer every question below explicitly. Do not skip any. Do not answer with a ge
 
 > Working on Phase 7 - Update Memory & Report
 
+- [ ] Get the current date and time by running `date +'%d-%m-%Y | %H:%M'` using the bash tool. You MUST use the output of this command as the timestamp — do NOT fabricate or guess the time.
 - [ ] Read `./memory/researcher.md`.
-- [ ] Update the memory entry for this task from `Status: ON PROGRESS` to `Status: DONE`.
+- [ ] Update the memory entry for this task: replace the timestamp with the new one from the `date` command, and change `Status: ON PROGRESS` to `Status: DONE`.
 - [ ] Do not delete any existing memory entries — only update the status of the current task entry.
 - [ ] Return the following output to the user exactly as specified.
 
